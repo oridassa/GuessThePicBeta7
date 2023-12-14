@@ -13,6 +13,13 @@ using Xamarin.Essentials;
 using Android.Service.Autofill;
 using Android.Graphics;
 using AndroidX.Browser.Trusted;
+using Android.Media;
+using System.IO;
+//
+using Java.IO;
+using Java.Nio;
+//
+
 
 namespace GuessThePicBeta7
 {
@@ -62,6 +69,7 @@ namespace GuessThePicBeta7
         private void SetImage()
         {
             Bitmap bitmap = BitmapFactory.DecodeByteArray(image.ImageBytesData, 0, image.ImageBytesData.Length);
+
             imageView.SetImageBitmap(bitmap);
         }
 

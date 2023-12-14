@@ -15,19 +15,19 @@
         android:layout_height="wrap_content"
         android:max="1000"
         android:progress="0"
-        />
+        />  
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Round 1"
-        android:textSize="50sp"
+        android:textSize="20sp"
         android:id="@+id/roundcount"
 	/>
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300sp"
+        android:layout_width="300dp"
+        android:layout_height="600dp"
         android:id="@+id/img"
-        
+        android:contentDescription="description" 
         
         />
     <LinearLayout
@@ -40,8 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/grid"
-                android:columnCount="2"
-                android:rowCount="4"
+                android:columnCount="4"
+                android:rowCount="2"
                 android:layout_gravity="bottom">
             </GridLayout>
     </LinearLayout>

@@ -31,7 +31,7 @@ namespace GuessThePicBeta7
         }
         private async void RequestPrem(object sender, EventArgs e) //checks if the user gives the app premission to use his pictures. 
         {//                                                          ***I need to make it automatic without a button!!!!***
-            var request = await Permissions.RequestAsync<Permissions.StorageRead>();
+            //var request = await Permissions.RequestAsync<Permissions.StorageRead>();
             var premission = await Permissions.CheckStatusAsync<Permissions.StorageRead>();
             Toast.MakeText(this, premission.ToString(), ToastLength.Short).Show();
         }

@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using System;
@@ -38,6 +39,14 @@ namespace GuessThePicBeta7
             listView.Adapter = adapter;
         }
 
+        public override void OnRequestPermissionsResult(int requestCode,
+            string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
         public void OnClick(View v)
         {
             Intent intent;
@@ -62,7 +71,7 @@ namespace GuessThePicBeta7
             }
         }
         private async void UploadPictures()
-        {
+        {   
             byte[] bytes;
 
             try
