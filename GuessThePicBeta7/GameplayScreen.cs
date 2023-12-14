@@ -68,7 +68,7 @@ namespace GuessThePicBeta7
 
         private void SetImage()
         {
-            Bitmap bitmap = BitmapFactory.DecodeByteArray(image.ImageBytesData, 0, image.ImageBytesData.Length);
+            Bitmap bitmap = image.GetBipmapImage();
 
             imageView.SetImageBitmap(bitmap);
         }

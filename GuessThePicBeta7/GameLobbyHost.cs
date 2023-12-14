@@ -4,6 +4,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Org.Apache.Http.Conn;
+using Plugin.Media;
 using System;
 using System.IO;
 using Xamarin.Essentials;
@@ -60,7 +62,8 @@ namespace GuessThePicBeta7
             else if (b.Text == "Insert photos")
             {
                 //player pressed "Insert photos"
-                UploadPictures();
+                //UploadPictures();
+                PickImage();
 
             }
             else if (b.Text == "Start Game")
@@ -70,30 +73,40 @@ namespace GuessThePicBeta7
                 base.StartActivity(intent);
             }
         }
-        private async void UploadPictures()
+        private async void UploadPictures() //this function rotated to image 90 degrees.
         {   
             byte[] bytes;
 
-            try
+            var result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
             {
-                var result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
-                {
-                    Title = "Upload a picture for the game!"
-                });
-                var stream = await result.OpenReadAsync();
-                var mstream = new MemoryStream();
-                stream.CopyTo(mstream);
-                bytes = mstream.ToArray();
+                Title = "Upload a picture for the game!"
+            });
+            var stream = await result.OpenReadAsync();
+            var mstream = new MemoryStream();
+            stream.CopyTo(mstream);
+            bytes = mstream.ToArray();
+    
+            string base64str = Convert.ToBase64String(bytes, Base64FormattingOptions.InsertLineBreaks);
 
-                CurrentPlayer.tempImage = new Image(bytes, "noam");
-            }
-            catch (Exception e)
+            CurrentPlayer.tempImage = new Image(bytes, "noam");
+
+        }
+        private async void PickImage()
+        {
+            await CrossMedia.Current.Initialize();
+            
+            if(!CrossMedia.Current.IsPickPhotoSupported)
             {
-                Toast.MakeText(this, e.ToString(), ToastLength.Short).Show();
+                Toast.MakeText(this, $"pick another photo", ToastLength.Short).Show();
+                return;
             }
+            var file = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+            {
+                PhotoSize = Plugin.Media.Abstractions.PhotoSize.Full
+            });
+            byte[] bytes = File.ReadAllBytes(file.Path);
 
-
-
+            CurrentPlayer.tempImage = new Image(bytes, "noam"); //temporary!!!!!
         }
 
         private ViewStates DetermineIfHost()//if player is host there will be a button to start the game, else, there would not be

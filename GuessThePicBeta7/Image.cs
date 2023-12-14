@@ -40,6 +40,11 @@ namespace GuessThePicBeta7
             this.sourcePlayer = CurrentPlayer.name; 
             this.ImageBytesData = mStream.ToArray();
         }
+        public Image(string base64Image, string sourcePlayer)
+        {
+            this.sourcePlayer = sourcePlayer;
+            this.ImageBytesData = this.ConvertBase64ToBytes(base64Image);
+        }
 
         public string ConvertBytesToBase64(byte[] imageBytes)
         {
